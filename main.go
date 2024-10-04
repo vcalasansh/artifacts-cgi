@@ -9,10 +9,14 @@ import (
 
 	"github.com/harness/artifacts-cgi/artifacts/docker"
 	"github.com/harness/artifacts-cgi/common"
+	"github.com/harness/artifacts-cgi/logger"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {
+	logger.SetLogrus()
 	http.HandleFunc("/", handle)
+	logrus.Info("artifacts-cgi server is running")
 	cgi.Serve(http.DefaultServeMux)
 }
 
@@ -33,6 +37,7 @@ type Params struct {
 
 func handle(w http.ResponseWriter, r *http.Request) {
 	// unmarshal the input
+	logrus.Info("handling new request")
 	params, err := parseParams(r)
 	if err != nil {
 		sendErrorResponse(w, http.StatusBadRequest, err.Error())
@@ -94,11 +99,13 @@ func parseParams(r *http.Request) (*Params, error) {
 }
 
 func sendSuccessResponse(w http.ResponseWriter, response interface{}) {
+	logrus.Infof("sending success response")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(response)
 }
 
 func sendErrorResponse(w http.ResponseWriter, status int, errMsg string) {
+	logrus.Errorf("sending error response with status [%s] and msg [%s]", status, errMsg)
 	w.WriteHeader(status)
 	json.NewEncoder(w).Encode(map[string]string{
 		"error": errMsg,

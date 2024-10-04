@@ -6,6 +6,7 @@ import (
 	"fmt"
 
 	"github.com/harness/artifacts-cgi/common"
+	"github.com/sirupsen/logrus"
 )
 
 type AuthType string
@@ -72,8 +73,10 @@ func (d *DockerHandler) Validate() (*common.ValidationResponse, error) {
 	case ProviderTypeDockerHub:
 		err := d.client.Validate(context.Background())
 		if err != nil {
+			logrus.WithError(err).Errorf("failed validating artifact server")
 			return &common.ValidationResponse{Status: common.ValidationStatusFailure, Error: common.ErrorDetail{Message: err.Error()}}, nil
 		}
+		logrus.Infof("successfully validated artifact server")
 		return &common.ValidationResponse{Status: common.ValidationStatusSuccess}, nil
 	default:
 		return nil, fmt.Errorf("Unsupport docker provider type [%s]", providerType)

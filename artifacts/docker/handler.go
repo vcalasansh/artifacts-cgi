@@ -20,7 +20,6 @@ var (
 )
 
 type DockerArtifactParams struct {
-	ImagePath    string       `json:"image_path"`
 	Url          string       `json:"url"`
 	ProviderType ProviderType `json:"provider_type"`
 	AuthType     AuthType     `json:"auth_type"`

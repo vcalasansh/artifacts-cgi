@@ -1,4 +1,4 @@
 task:
   run:
     go:
-      module: artifacts-cgi
+      module: github.com/harness/artifacts-cgi

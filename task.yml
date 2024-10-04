@@ -1,0 +1,4 @@
+task:
+  run:
+    go:
+      module: artifacts-cgi

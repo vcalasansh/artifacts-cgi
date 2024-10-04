@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	apiVersionEndpoint = "/v2"
+	apiVersionEndpoint = "/v2/"
 )
 
 var (

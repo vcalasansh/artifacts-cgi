@@ -73,7 +73,7 @@ func (p *HTTPClient) Retry(ctx context.Context, path, method string, in, out int
 			if (ignoreStatusCode && err != nil) || res.StatusCode > 501 {
 				logrus.Errorf("url: %s server error: re-connect and re-try: %s", path, err)
 				if duration == backoff.Stop {
-					logrus.Errorf("max retry limit reached, task status won't be updated")
+					logrus.Errorf("max retry limit reached")
 					return nil, err
 				}
 				time.Sleep(duration)
@@ -82,7 +82,7 @@ func (p *HTTPClient) Retry(ctx context.Context, path, method string, in, out int
 		} else if err != nil {
 			logrus.Errorf("http: request error: %s", err)
 			if duration == backoff.Stop {
-				logrus.Errorf("max retry limit reached, task status won't be updated")
+				logrus.Errorf("max retry limit reached")
 				return nil, err
 			}
 			time.Sleep(duration)

@@ -20,5 +20,5 @@ type ValidationResponse struct {
 type ErrorDetail struct {
 	Message string `json:"message"`
 	Reason  string `json:"reason"`
-	Code    int    `json:"int"`
+	Code    int    `json:"code"`
 }

@@ -73,7 +73,7 @@ func (d *DockerHandler) Validate() (*common.ValidationResponse, error) {
 		err := d.client.Validate(context.Background())
 		if err != nil {
 			logrus.WithError(err).Errorf("failed validating artifact server")
-			return &common.ValidationResponse{Status: common.ValidationStatusFailure, Error: common.ErrorDetail{Message: err.Error()}}, nil
+			return &common.ValidationResponse{Status: common.ValidationStatusFailure, Errors: []common.ErrorDetail{{Message: err.Error(), Reason: "Failed validating docker artifact server"}}, ErrorSummary: fmt.Sprintf("Failed validating artifact server: %s", err.Error())}, nil
 		}
 		logrus.Infof("successfully validated artifact server")
 		return &common.ValidationResponse{Status: common.ValidationStatusSuccess}, nil

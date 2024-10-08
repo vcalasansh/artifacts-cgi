@@ -12,11 +12,13 @@ type ArtifactHandler interface {
 }
 
 type ValidationResponse struct {
-	Status ValidationStatus `json:"status"`
-	Error  ErrorDetail      `json:"error"`
+	Status       ValidationStatus `json:"status"`
+	Errors       []ErrorDetail    `json:"errors"`
+	ErrorSummary string           `json:"error_summary"`
 }
 
 type ErrorDetail struct {
 	Message string `json:"message"`
+	Reason  string `json:"reason"`
 	Code    int    `json:"int"`
 }
